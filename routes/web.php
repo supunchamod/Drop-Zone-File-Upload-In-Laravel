@@ -24,4 +24,4 @@ Route::get('/imageupload',function(){
     return view('imageUpload');
 });
 
-Route::post('/images', [ImageController::class, 'store']);
+Route::post('dropzone/store', [ImageController::class, 'store'])->name('dropzone.store');

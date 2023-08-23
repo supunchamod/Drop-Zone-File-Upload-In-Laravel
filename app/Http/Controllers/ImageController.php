@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Image;
 
 class ImageController extends Controller
 {
@@ -27,7 +28,17 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = $request->file('file');
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('images'),$imageName);
+
+        $imageUpload = new Image();
+        $imageUpload -> filename = $imageName;
+        $imageUpload->save();
+        
+        $successMessage = "Image uploaded successfully.";
+        // Redirect back with the success message
+        return redirect()->back()->with('success', $successMessage);
     }
 
     /**
